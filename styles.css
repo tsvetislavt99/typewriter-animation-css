@@ -1,12 +1,13 @@
 :root {
   --bg-color: hsl(49 37% 94%);
-  --typewriterSpeed: 6s;
-  --typewriterCharacters: 20;
+  --typewriterSpeed: 3s;
+  --typewriterCharactersHeading: 20;
+  --typewriterCharactersSubTitle: 24;
 }
 
 body {
   margin: 0;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Source Code Pro', sans-serif;
   min-height: 100vh;
   display: grid;
   place-content: center;
@@ -15,10 +16,9 @@ body {
 }
 
 h1 {
-  font-size: clamp(1rem, 3vw + 1rem, 4rem);
+  font-size: clamp(1rem, 2vw + 1rem, 4rem);
   position: relative;
   font-family: 'Source Code Pro', monospace;
-  position: relative;
   width: max-content;
 }
 
@@ -34,27 +34,51 @@ h1::after {
 
 /* The charecters count (18) is hardcoded here, but this value can be set dynamically with JS */
 h1::before {
-  background-color: teal;
   animation: typewriter var(--typewriterSpeed)
-    steps(var(--typewriterCharacters)) 1s forwards;
+    steps(var(--typewriterCharactersHeading)) 1s forwards;
   background: var(--bg-color);
 }
 
 h1::after {
   width: 0.125em;
-  background: #000;
+  background: transparent;
   animation: typewriter var(--typewriterSpeed)
-      steps(var(--typewriterCharacters)) 1s forwards,
-    blink 750ms steps(24) infinite;
+      steps(var(--typewriterCharactersHeading)) 1s forwards,
+    blink 750ms steps(24) 6;
 }
 
 .subtitle {
   color: hsl(0 0% 0% / 0.7);
-  font-size: 2rem;
+  font-size: clamp(0.75rem, 1vw + 1rem, 2rem);
   font-weight: 400;
-  opacity: 0;
-  transform: translateY(3rem);
-  animation: fadeInUp 2s ease calc(var(--typewriterSpeed) + 2s) forwards;
+  position: relative;
+  width: max-content;
+}
+
+.subtitle::before,
+.subtitle::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.subtitle::before {
+  animation: typewriter var(--typewriterSpeed)
+    steps(var(--typewriterCharactersSubTitle)) calc(var(--typewriterSpeed) + 2s)
+    forwards;
+  background: var(--bg-color);
+}
+
+.subtitle::after {
+  width: 0.125em;
+  background: transparent;
+  animation: typewriter var(--typewriterSpeed)
+      steps(var(--typewriterCharactersSubTitle))
+      calc(var(--typewriterSpeed) + 2s) forwards,
+    blink 750ms steps(24) calc(var(--typewriterSpeed) + 2s) infinite;
 }
 
 @keyframes typewriter {
@@ -65,13 +89,6 @@ h1::after {
 
 @keyframes blink {
   to {
-    background: transparent;
-  }
-}
-
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+    background: #000;
   }
 }
