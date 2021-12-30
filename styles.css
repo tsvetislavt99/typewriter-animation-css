@@ -1,3 +1,9 @@
+:root {
+  --bg-color: hsl(49 37% 94%);
+  --typewriterSpeed: 6s;
+  --typewriterCharacters: 24;
+}
+
 body {
   margin: 0;
   font-family: 'Source Sans Pro', sans-serif;
@@ -5,6 +11,7 @@ body {
   display: grid;
   place-content: center;
   text-align: center;
+  background: var(--bg-color);
 }
 
 h1 {
@@ -13,4 +20,32 @@ h1 {
   font-family: 'Source Code Pro', monospace;
   position: relative;
   width: max-content;
+}
+
+h1::before,
+h1::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/* The charecters count (18) is hardcoded here, but this value can be set dynamically with JS */
+h1::before {
+  background-color: teal;
+  animation: typewriter 2s steps(18) forwards;
+}
+
+@keyframes typewriter {
+  to {
+    left: 100%;
+  }
+}
+
+.subtile {
+  color: hsl(0 0% 0% / 0.7);
+  font-size: 2rem;
+  font-weight: 400;
 }
