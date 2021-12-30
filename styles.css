@@ -1,7 +1,7 @@
 :root {
   --bg-color: hsl(49 37% 94%);
   --typewriterSpeed: 6s;
-  --typewriterCharacters: 24;
+  --typewriterCharacters: 20;
 }
 
 body {
@@ -35,7 +35,26 @@ h1::after {
 /* The charecters count (18) is hardcoded here, but this value can be set dynamically with JS */
 h1::before {
   background-color: teal;
-  animation: typewriter 2s steps(18) forwards;
+  animation: typewriter var(--typewriterSpeed)
+    steps(var(--typewriterCharacters)) 1s forwards;
+  background: var(--bg-color);
+}
+
+h1::after {
+  width: 0.125em;
+  background: #000;
+  animation: typewriter var(--typewriterSpeed)
+      steps(var(--typewriterCharacters)) 1s forwards,
+    blink 750ms steps(24) infinite;
+}
+
+.subtitle {
+  color: hsl(0 0% 0% / 0.7);
+  font-size: 2rem;
+  font-weight: 400;
+  opacity: 0;
+  transform: translateY(3rem);
+  animation: fadeInUp 2s ease calc(var(--typewriterSpeed) + 2s) forwards;
 }
 
 @keyframes typewriter {
@@ -44,8 +63,15 @@ h1::before {
   }
 }
 
-.subtile {
-  color: hsl(0 0% 0% / 0.7);
-  font-size: 2rem;
-  font-weight: 400;
+@keyframes blink {
+  to {
+    background: transparent;
+  }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
